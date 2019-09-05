@@ -7,8 +7,27 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class AppTest {
-    @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+
+// Pay attention your args map is excesable from inside the script like 'inputMap.get() etc'
+        val script = """ 
+        |println("Hello from script") 
+        |println( inputMap["Arg1"] )
+        |println( this::class )
+        |1+1
+    """.trimMargin()
+
+/*
+ result returns the RatingScript object (not the expression result)
+ The $$Result property is not present (not yet implemented? )
+
+ */
+    @Test fun testBasicScript() {
+    // should print
+    //    hello from script
+    //    town
+    //    class Script
+    
+        val result = evaluateScript(script,mapOf("Arg1" to "town"))
+        assertNotNull(result, "Result should be not null")
     }
 }

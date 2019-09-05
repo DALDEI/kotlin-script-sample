@@ -38,7 +38,7 @@ fun evaluateScript(script: String, input: Map<String, Any>) : Any? {
     }
     // scriptEvaluation.kt  -- ScriptEvaluationConfigurationKeys.*
     val evaluation : ScriptEvaluationConfiguration.Builder.() -> Unit = {
-          constructorArgs(mapOf("Arg1" to "Value1"))
+          constructorArgs(input)
 
     }
 
@@ -51,24 +51,4 @@ fun evaluateScript(script: String, input: Map<String, Any>) : Any? {
      val result = (evalResult?.returnValue as ResultValue.Value).value
     return result
  //You can cast your result (depends what your script returns)
-}
-
-fun main(){
-
-// Pay attention your args map is excesable from inside the script like 'inputMap.get() etc'
-    val script = """ 
-        |println("Hello from script") 
-        |println( inputMap["Arg1"] )
-        |println( this::class )
-        |1+1
-    """.trimMargin()
-
-/*
- result returns the RatingScript object (not the expression result)
- The $$Result property is not present (not yet implemented? )
-
- */
-    val result = evaluateScript(script,mapOf("go" to "town"))
-    println( result!!::class.members.joinToString{ it.name })
-
 }

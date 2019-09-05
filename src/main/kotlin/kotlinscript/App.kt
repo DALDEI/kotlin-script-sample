@@ -3,13 +3,11 @@
  */
 package kotlinscript
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
-}
-
+// trivial useless main -- doesnt work well with gradle
+// ./gradlew run --args="println(1)"
 fun main(args: Array<String>) {
-    println(App().greeting)
+    require(args.size > 0)
+    val body = args[0]
+    val params = args.drop(1).zipWithNext().toMap()
+    evaluateScript( body , params )
 }
